@@ -4,7 +4,7 @@ import org.apache.flink.api.scala.ExecutionEnvironment
 import org.apache.flink.api.scala._
 
 /**
- * @ProjectName: Flink_Parent 
+ * @ProjectName: Flink_Parent
  * @ClassName: DataSetFlatMap
  * @Author: xianlawei
  * @Description: flatMap
@@ -20,6 +20,7 @@ object DataSetFlatMap {
 
     val flatMapDS: DataSet[List[(String, Int)]] = environment.fromElements(List(("java", 1), ("scala", 1), ("java", 1)))
 
+    //使用flatMap执行转换
     // val tupleDS: DataSet[(String, Int)] = flatMapDS.flatMap(line=>line)
     flatMapDS
       //只是单纯将元素取出

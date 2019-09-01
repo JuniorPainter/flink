@@ -23,6 +23,7 @@ object DataSetGroupReduceFunction {
 
     dataDS
       .groupBy(_._1)
+      //自定义匿名函数，来进行数据转换
       .combineGroup(new DataSetGroupReduceFunction)
       .print()
   }
@@ -34,12 +35,14 @@ class DataSetGroupReduceFunction
   extends GroupReduceFunction[(String, Int), (String, Int)]
     with GroupCombineFunction[(String, Int), (String, Int)] {
 
+  //reduce后执行
   override def reduce(values: lang.Iterable[(String, Int)], out: Collector[(String, Int)]): Unit = {
     for (line <- values.asScala) {
       out.collect(line)
     }
   }
 
+  //combine先执行
   override def combine(values: lang.Iterable[(String, Int)], out: Collector[(String, Int)]): Unit = {
     var key = ""
     var count = 0
