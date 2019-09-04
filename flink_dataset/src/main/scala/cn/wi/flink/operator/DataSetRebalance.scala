@@ -26,11 +26,13 @@ object DataSetRebalance {
       .map(new RichMapFunction[Long, (Int, Long)] {
         var subtask = 0
 
+        //数据预处理和初始化
         override def open(parameters: Configuration): Unit = {
           //通过上下文对象，获取任务/线程ID
           subtask = getRuntimeContext.getIndexOfThisSubtask
         }
 
+        //正常业务处理  数据转换
         override def map(value: Long): (Int, Long) = {
           (subtask, value)
         }

@@ -42,12 +42,16 @@ object DataSetJoin {
     //Join操作
     dataDS01
       .join(dataDS02)
+      //左边数据集
       .where(0)
+      //右边数据集
       .equalTo(0) {
+            //组合操作
         (dataDS01, dataDS02) => (dataDS02._1, dataDS02._2, dataDS01._2, dataDS01._3)
       }
       //按照join左边的字段进行分组
       .groupBy(1, 2)
+
       .maxBy(3)
       .print()
   }

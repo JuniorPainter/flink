@@ -40,6 +40,6 @@ object DataSetTopN {
 
     val dataDS: DataSet[(Int, Long, String)] = environment.fromCollection(dataML)
     //first,取值,下标是从1开始的
-    dataDS.first(2).print()
+    dataDS.groupBy(1).first(2).print()
   }
 }

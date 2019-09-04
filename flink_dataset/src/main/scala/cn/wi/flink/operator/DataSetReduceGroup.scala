@@ -24,6 +24,7 @@ object DataSetReduceGroup {
         (in: Iterator[(String, Int)], out: Collector[(String, Int)]) => {
           //将输入的数据进行reduce聚合
           val tuple: (String, Int) = in.reduce((x, y) => (x._1, x._2 + y._2))
+          //收集输出出去
           out.collect(tuple)
         }
       ).print()

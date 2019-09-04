@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>flink_dataset</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>flink_datastreaming</artifactId>
+
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
