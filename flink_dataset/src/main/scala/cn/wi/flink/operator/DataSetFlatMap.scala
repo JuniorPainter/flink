@@ -3,6 +3,8 @@ package cn.wi.flink.operator
 import org.apache.flink.api.scala.ExecutionEnvironment
 import org.apache.flink.api.scala._
 
+import scala.collection.immutable
+
 /**
  * @ProjectName: Flink_Parent
  * @ClassName: DataSetFlatMap
@@ -24,7 +26,7 @@ object DataSetFlatMap {
     // val tupleDS: DataSet[(String, Int)] = flatMapDS.flatMap(line=>line)
     flatMapDS
       //只是单纯将元素取出
-      .flatMap(line => line)
+      .flatMap((line: immutable.Seq[(String, Int)]) => line)
       .groupBy(0)
       .sum(1)
       .print()

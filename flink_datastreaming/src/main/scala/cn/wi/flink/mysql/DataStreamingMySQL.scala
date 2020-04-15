@@ -24,8 +24,8 @@ object DataStreamingMySQL {
     //RichSourceFunction 继承了AbstractRichFunction方法 可以复写下面的多个方法
     val dataDS: DataStream[Demon] = environment.addSource(new RichSourceFunction[Demon] {
 
-      var connection: Connection = null
-      var pst: PreparedStatement = null
+      var connection: Connection = _
+      var pst: PreparedStatement = _
 
       //数据预处理方法 初始化方法 在run方法之前执行
       override def open(parameters: Configuration): Unit = {

@@ -21,7 +21,8 @@ object DataSetMap {
     val mapDS: DataSet[String] = environment.fromCollection(List("1,张三", "2,李四", "3,王五", "4,赵六"))
 
     //使用map操作执行转换
-    mapDS.map(line => {
+    mapDS.map((line: String) => {
+      //"1,张三"
       val field: Array[String] = line.split(",")
       DataSetMap(field(0), field(1))
     }

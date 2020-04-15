@@ -40,7 +40,7 @@ object DataSetCross {
     val dataDS02: DataSet[(Int, String)] = environment.fromCollection(dataMT)
 
     dataDS01.cross(dataDS02) {
-      (dataDS01, dataDS02) => (dataDS01._1, dataDS01._2, dataDS01._3, dataDS02._2)
+      (dataDS01: (Int, String, Double), dataDS02: (Int, String)) => (dataDS01._1, dataDS01._2, dataDS01._3, dataDS02._2)
     }.distinct(2).print()
   }
 }

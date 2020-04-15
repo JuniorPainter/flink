@@ -20,12 +20,12 @@ object WordCount {
     val wordCountDS: DataSet[String] = environment.fromElements("Who's there? I think I hear them. Stand, ho! Who's there?")
 
     //3. 指定数据转换
-    val wordDS: DataSet[(String, Int)] = wordCountDS.flatMap(line =>
+    val wordDS: DataSet[(String, Int)] = wordCountDS.flatMap((line: String) =>
       line
         .toLowerCase()
         .split("\\W+")
-        .filter(line => line.nonEmpty)
-        .map(word => (word, 1))
+        .filter((line: String) => line.nonEmpty)
+        .map((word: String) => (word, 1))
     )
     //二元组 (word, 1)  按照K进行分组  按照V进行求和
     wordDS

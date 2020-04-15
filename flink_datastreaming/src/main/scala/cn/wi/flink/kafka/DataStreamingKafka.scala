@@ -41,7 +41,7 @@ object DataStreamingKafka {
     val kafkaDS: DataStream[String] = environment.addSource(kafkaSource)
 
     //数据转换：字符串，转成结构化数据(Bean)
-    val valueDS: DataStream[ProcessedData] = kafkaDS.map(line => {
+    val valueDS: DataStream[ProcessedData] = kafkaDS.map((line: String) => {
 
       val values: Array[String] = line.split("#CS#")
       val length: Int = values.length
@@ -49,7 +49,7 @@ object DataStreamingKafka {
       val requestMethod: String = if (length > 2) values(2) else ""
       val contentType: String = if (length > 3) values(3) else ""
       //Post提交的数据体
-      val requestBody = if (length > 4) values(4) else ""
+      val requestBody: String = if (length > 4) values(4) else ""
       //http_referrer
       val httpReferrer = if (length > 5) values(5) else ""
       //客户端IP

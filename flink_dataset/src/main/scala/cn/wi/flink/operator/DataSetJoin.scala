@@ -47,7 +47,7 @@ object DataSetJoin {
       //右边数据集
       .equalTo(0) {
             //组合操作
-        (dataDS01, dataDS02) => (dataDS02._1, dataDS02._2, dataDS01._2, dataDS01._3)
+        (dataDS01: (Int, String, Double), dataDS02: (Int, String)) => (dataDS02._1, dataDS02._2, dataDS01._2, dataDS01._3)
       }
       //按照join左边的字段进行分组
       .groupBy(1, 2)
