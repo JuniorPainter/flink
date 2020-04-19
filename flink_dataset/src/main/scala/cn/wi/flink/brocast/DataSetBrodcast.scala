@@ -37,34 +37,38 @@ object DataSetBrodcast {
     //.map是对输入的进行转换，所以dataDS01是输入量，(Int, Long, String)与dataSet01的参数类型是对应的  表示输入In
     //(Int, Long, String, String)与输出的类型是对应的   表示输出OUT
     //匿名函数
-    dataDS01.map(new RichMapFunction[(Int, Long, String), (Int, Long, String, String)] {
-      var buffer: mutable.Buffer[(Int, Long, Int, String, Long)] = null
+    dataDS01.map(
+      // 使用map操作传入 RichMapFunction ，将当前子任务的ID和数字构建成一个元组  转换数据格式
+      //RichMapFunction[(输入), (输出)]
+      new RichMapFunction[(Int, Long, String), (Int, Long, String, String)] {
+        var buffer: mutable.Buffer[(Int, Long, Int, String, Long)] = _
 
-      import collection.JavaConverters._
+        import collection.JavaConverters._
 
-      //
-      override def open(parameters: Configuration): Unit = {
-        //getRuntimeContext 获取上下文对象 通过上下文对象获取广播变量
-        val dataUL: util.List[(Int, Long, Int, String, Long)] = getRuntimeContext
-          //dataDS02的变量数量集和类型
-          .getBroadcastVariable[(Int, Long, Int, String, Long)]("dataDS02")
-        buffer = dataUL.asScala
-      }
-
-      //数据转换，负责转换成四元组(Int, Long, String, String)
-      override def map(value: (Int, Long, String)): (Int, Long, String, String) = {
-        var tuple: (Int, Long, String, String) = null
-        //对广播变量进行循环  将广播变量的每一条数据
-        for (line <- buffer) {
-          if (line._2 == value._2) {
-            //进行数据合并
-            tuple = (value._1, value._2, value._3, line._4)
-          }
+        //open在map方法之前先执行
+        override def open(parameters: Configuration): Unit = {
+          //getRuntimeContext 获取上下文对象 通过上下文对象获取广播变量
+          val dataUL: util.List[(Int, Long, Int, String, Long)] =
+          //dataDS02的变量数量集和类型  获取广播变量
+            getRuntimeContext.getBroadcastVariable[(Int, Long, Int, String, Long)]("dataDS02")
+          //将Java数据转换成Scala数据格式
+          buffer = dataUL.asScala
         }
-        tuple
-      }
-    })
-      //加载广播变量  与open中别名一致
+
+        //数据转换，负责转换成四元组(Int, Long, String, String)
+        override def map(value: (Int, Long, String)): (Int, Long, String, String) = {
+          var tuple: (Int, Long, String, String) = null
+          //对广播变量进行循环  获取广播变量的每一条数据
+          for (line <- buffer) {
+            if (line._2 == value._2) {
+              //进行数据合并
+              tuple = (value._1, value._2, value._3, line._4)
+            }
+          }
+          tuple
+        }
+      })
+      //共享广播变量  与open中别名一致
       .withBroadcastSet(dataDS02, "dataDS02").print()
   }
 }

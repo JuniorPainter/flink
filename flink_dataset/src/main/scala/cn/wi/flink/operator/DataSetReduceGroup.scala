@@ -19,10 +19,11 @@ object DataSetReduceGroup {
 
     dataDS
       .groupBy(_._1)
+      //
       .reduceGroup(
-        //in 表示输入的数据  out是输出的数据
+        //in 表示输入的数据 分组的数据集  out是输出的数据
         (in: Iterator[(String, Int)], out: Collector[(String, Int)]) => {
-          //将输入的数据进行reduce聚合
+          //将输入的数据(分组的数据集)进行reduce聚合
           val tuple: (String, Int) = in.reduce((x, y) => (x._1, x._2 + y._2))
           //收集输出出去
           out.collect(tuple)

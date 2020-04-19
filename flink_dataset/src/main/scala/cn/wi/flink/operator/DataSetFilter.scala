@@ -16,7 +16,8 @@ object DataSetFilter {
 
     val dataDS: DataSet[String] = environment.fromElements("java", "scala", "java")
 
-    dataDS.filter(word =>
+
+    dataDS.filter((word: String) =>
       word.contains("java")
     ).print()
   }

@@ -19,14 +19,12 @@ object WordCount {
     val dataDS: DataStream[String] = environment.socketTextStream("localhost", 9999)
 
     dataDS
-      .flatMap(line =>
-        line.toLowerCase()
-          .split("\\W+")
-      )
-      .filter(line => line.nonEmpty)
-      .map(line => (line, 1))
-      //流处理中分组是：KeyBy
+      .flatMap((line: String) => line.toLowerCase().split("\\W+"))
+      .filter((line: String) => line.nonEmpty)
+      .map((line: String) => (line, 1))
+      //流处理中数据分组是：KeyBy
       .keyBy(0)
+      //数据聚合
       .sum(1)
       //数据打印
       .print()

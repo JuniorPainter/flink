@@ -44,7 +44,7 @@ object DataSetPartition {
     val dataDS: DataSet[(Int, Long, String)] = environment.fromCollection(dataML)
     //partitionByHash
         dataDS
-          // 0 1 2 1表示第二个参数
+          // 0 1 2           1表示按照第二个参数进行Hash分区
           .partitionByHash(1)
           .mapPartition(line =>
             line.map(x =>

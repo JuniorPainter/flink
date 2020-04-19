@@ -16,11 +16,22 @@ object DataStreamingSplitAndSelect {
 
     val dataDSInt: DataStream[Int] = environment.fromElements(1, 2, 3, 4, 5)
 
-    dataDSInt.split(line =>
+    dataDSInt.split((line: Int) =>
       line % 2 match {
         case 0 => List("even")
         case 1 => List("odd")
       }).select("even").print()
+
+    //3.数据切分
+    //    val splitData: SplitStream[Int] = dataDSInt.split(line => {
+    //      line % 2 match {
+    //        case 0 => List("even")
+    //        case 1 => List("odd")
+    //      }
+    //    })
+    //4.切分流数据查询
+    //splitData.select("even").print()
+
     environment.execute()
   }
 }

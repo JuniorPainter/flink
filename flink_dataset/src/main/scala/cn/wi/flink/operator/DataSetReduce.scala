@@ -18,7 +18,7 @@ object DataSetReduce {
 
     dataDS
       //这里输入的数据直接就是元组 直接按照dataDS的每一个元素取出操作即可
-      .map(line => line)
+      .map((line: (String, Int)) => line)
       //0表示第一个字段
       .groupBy(0)
       //.groupBy(_._1)  _1表示元组中的第一个元素

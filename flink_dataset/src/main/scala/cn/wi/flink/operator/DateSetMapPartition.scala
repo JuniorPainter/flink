@@ -19,8 +19,8 @@ object DateSetMapPartition {
 
     val tupleDS: DataSet[(String, Int)] = environment.fromElements(("java", 1), ("scala", 1), ("java", 1))
 
-    tupleDS.mapPartition(iter =>
-      iter.map(line =>
+    tupleDS.mapPartition((iter: Iterator[(String, Int)]) =>
+      iter.map((line: (String, Int)) =>
         //直接转成二元组
         (line._1, line._2)
         // 转成样例类

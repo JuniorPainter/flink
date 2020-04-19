@@ -30,12 +30,16 @@ object DataSetAggregate {
 
     dataDS
       .groupBy(1)
-      //单独使用的时候，输出每组的最小或者最大值
+      //单独使用的时候，输出每组的最小或者最大值  2表示第三个元素 根据第三个元素取最小值
       .minBy(2)
+      //返回满足条件的一组元素
+      //.maxBy(2)
+      //返回满足条件的最值
+      //.max(2)
       //单独使用的时候，输出每组的最大值
-      .aggregate(Aggregations.MAX,2)
       //两者合用的时候 例如：会从每组最小的集合中 按照第二个字段选出最大的
-      // 每组最小值 (4,Physical,40.0)                     组合使用：返回结果(5,Chinese,50.0)
+      .aggregate(Aggregations.MAX,2)
+      // 每组最小值 (4,Physical,40.0)       组合使用：返回结果(5,Chinese,50.0)
       //  (5,Chinese,50.0)
       //  (3,English,30.0)
       //  (2,Math,20.0)

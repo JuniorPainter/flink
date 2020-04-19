@@ -19,7 +19,7 @@ object DataStreamingCarsWindow {
     //TODO 加载数据源
     val dataDS: DataStream[String] = environment.socketTextStream("localhost", 9999)
     //TODO 数据转换
-    val window: KeyedStream[DataStreamingCarsWindow, Tuple] = dataDS.map(line => {
+    val window: KeyedStream[DataStreamingCarsWindow, Tuple] = dataDS.map((line: String) => {
       val array: Array[String] = line.split(",")
       DataStreamingCarsWindow(array(0).toInt, array(1).toInt)
     })
@@ -42,12 +42,12 @@ object DataStreamingCarsWindow {
 
 
     //无重叠的数量窗口   只有当一样的K的数据出现三次才会触发 否则不触发
-//    window.countWindow(3)
-//      .sum("count")
-//      .print()
+    //    window.countWindow(3)
+    //      .sum("count")
+    //      .print()
 
     //有重叠的数量窗口 K出现三次才会触发一次  会计算过去出现6次的数据
-    window.countWindow(6,3)
+    window.countWindow(6, 3)
       .sum("count")
       .print()
     environment.execute("cat sum")

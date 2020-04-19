@@ -43,12 +43,13 @@ object DataSetDistributeCache {
         //获取上面文件  用缓存的别名
         val cache: File = getRuntimeContext.getDistributedCache.getFile("cache")
 
+        //解析文件
         val lines: Iterator[String] = Source
           //获取绝对路径
           .fromFile(cache.getAbsoluteFile)
           //获取每一行的内容
           .getLines()
-        lines.foreach(line => {
+        lines.foreach((line: String) => {
           buffer.append(line)
         })
       }

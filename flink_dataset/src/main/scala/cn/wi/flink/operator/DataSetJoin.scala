@@ -42,11 +42,11 @@ object DataSetJoin {
     //Join操作
     dataDS01
       .join(dataDS02)
-      //左边数据集
+      //左边数据集第一个元素
       .where(0)
-      //右边数据集
+      //右边数据集 第一个元素 进行关联  equalTo有点类似于on的意思
       .equalTo(0) {
-            //组合操作
+            //组合操作  将dataDS01和dataDS02合并到一起
         (dataDS01: (Int, String, Double), dataDS02: (Int, String)) => (dataDS02._1, dataDS02._2, dataDS01._2, dataDS01._3)
       }
       //按照join左边的字段进行分组
