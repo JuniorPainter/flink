@@ -26,6 +26,8 @@ object EventTime {
     //设置事件时间
     environment.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
 
+
+
     //数据转换，新建Bean
     dataDS.map(line => {
       val array: Array[String] = line.split(",")
@@ -43,4 +45,6 @@ object EventTime {
 
     environment.execute()
   }
+
+
 }

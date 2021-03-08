@@ -11,6 +11,7 @@ import org.apache.flink.util.Collector
  * @Description:
  * @date: 2019/9/2 21:26
  */
+//WindowFunction[IN输入, OUT输出, KEY 以什么类型进行分组的, W <: Window 窗口类型]
 class MyMaxFunction extends WindowFunction[Boss, Double, String, TimeWindow] {
   //复写父类的方法
   override def apply(

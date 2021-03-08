@@ -32,13 +32,22 @@ object DataStreamingToTable {
       Order(4L, "beer", 1)
     )
 
+    val dataDS03: DataStream[Order] = environment.fromElements(
+      Order(2L, "pen", 3),
+      Order(2L, "rubber", 3),
+      Order(4L, "beer", 1)
+    )
+
     //把流转换成表
     tableEnvironment.registerDataStream("dataDS01", dataDS01)
     tableEnvironment.registerDataStream("dataDS02", dataDS02)
+    tableEnvironment.registerDataStream("dataDS03", dataDS03)
+
+
 
     //使用SQL来查询
     val table: Table = tableEnvironment
-      .sqlQuery("select * from dataDS01 union all select * from dataDS02")
+      .sqlQuery("select * from dataDS01 join dataDS02 on dataDS01.id=dataDS02.id")
 
     //数据落地
     table.writeToSink(new CsvTableSink(

@@ -22,6 +22,7 @@ object WordCount {
       .flatMap((line: String) => line.toLowerCase().split("\\W+"))
       .filter((line: String) => line.nonEmpty)
       .map((line: String) => (line, 1))
+
       //流处理中数据分组是：KeyBy
       .keyBy(0)
       //数据聚合

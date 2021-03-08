@@ -40,6 +40,9 @@ object DataSetTable {
     val table: Table = tableEnvironment
       .sqlQuery("select * from dataDS01 union all select * from dataDS02")
 
+    print(table.toString())
+
+
     table.writeToSink(new
         CsvTableSink("D:\\Flink\\output\\table\\DataStreamingToTable\\",",",1,WriteMode.OVERWRITE))
 

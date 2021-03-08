@@ -47,7 +47,7 @@ object DataStreamingCheckPoint {
 
     //检查点制作失败 程序会报错  默认是true
     environment.getCheckpointConfig.setFailOnCheckpointingErrors(false)
-
+    
     //当检查点制作失败的时候，task继续运行
     environment.getCheckpointConfig.setMaxConcurrentCheckpoints(1)
     //RETAIN_ON_CANCELLATION:取消任务的时候，保留检查点，需要手动删除 (生产环境使用)

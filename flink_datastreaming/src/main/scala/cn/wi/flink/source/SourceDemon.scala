@@ -18,6 +18,7 @@ object SourceDemon {
 
     //自定义多并行度数据源
     environment.addSource(new MultiParallelismCustomizeSource).setParallelism(1).print()
+    environment.addSource(new MultiParallelismCustomizeSource)
 
 
     environment.execute()

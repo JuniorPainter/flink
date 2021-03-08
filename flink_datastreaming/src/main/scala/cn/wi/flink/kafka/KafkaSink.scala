@@ -19,7 +19,6 @@ object KafkaSink {
     val source: DataStream[Demon] = executionEnvironment.fromElements(Demon(1, "xiao", 20))
     val sourceDataStream: DataStream[String] = source.map((line: Demon) => line.toString)
 
-
     //flink整合kafka
     val properties = new Properties()
     properties.setProperty("bootstrap.servers","node01:9092,node02:9092,node03:9092")

@@ -21,6 +21,7 @@ object DataStreamMySQLSink {
     //封装数据(Bean)
     val demon: DataStream[Demon] = environment.fromElements(Demon(10, "xiaoli", 20))
 
+
     //进行数据转换，自定义
     demon.addSink(new RichSinkFunction[Demon] {
       var connection: Connection = null
